@@ -19,6 +19,8 @@ const submitButton = 'submitQuiz';
 const previousButton = "previous";
 const nextButton = "buttonNextQuiz";
 
+let numSongs = 3;
+
 let questions = [
     {
     numb: 1,
@@ -90,84 +92,60 @@ let questions = [
   // },
 ];
 
-// Kick things off
-
-// Pagination
-
-const slides = ".slide";
-let currentSlide = 0;
-
 let started = false;
 let playedTrack = false;
 
 // Song titles
 const songs = ['hey', 'summer', 'ukulele'];
 
+let playedSongs = []
 // Keep track of song
-let songIndex = 2;
-
-// Initially load song details into DOM
+let songIndex = Math.floor(Math.random() * songs.length);
 
 // Update song details
-function loadSong(song) {
-  title.innerText = song;
+loadSong = (song) => 
+{
   document.getElementById(audio).src = `music/${song}.mp3`;
   document.getElementById(cover).src = `images/${song}.jpg`;
 }
 
 // Play song
-function playSong() {
+playSong = () => 
+{
 	document.getElementById(musicContainer).classList.add('play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.remove('fa-play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.add('fa-pause');
-
 	document.getElementById(audio).play();
 }
 
 // Pause song
-function pauseSong() {
+pauseSong = () => 
+{
 	document.getElementById(musicContainer).classList.remove('play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.add('fa-play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.remove('fa-pause');
-
 	document.getElementById(audio).pause();
 }
 
-// Previous song
-function prevSong() {
-  songIndex--;
-
-  if (songIndex < 0) {
-    songIndex = songs.length - 1;
-  }
-
+nextSong = () =>
+{
+  while (playedSongs.includes(songIndex = Math.floor(Math.random() * songs.length)));
+  playedSongs.push(songIndex);
   loadSong(songs[songIndex]);
-
-  playSong();
-}
-
-// Next song
-function nextSong() {
-  songIndex++;
-
-  if (songIndex > songs.length - 1) {
-    songIndex = 0;
-  }
-
-  loadSong(songs[songIndex]);
-
   playSong();
 }
 
 // Update progress bar
-function updateProgress(e) {
+updateProgress = (e) => 
+{
 	const { duration, currentTime } = e.srcElement;
 	const progressPercent = (currentTime / duration) * 100;
 	document.getElementById(progress).style.width = `${progressPercent}%`;
 }
 
 // Set progress bar
-function setProgress(e) {
+setProgress = (e) => 
+{
 	const width = document.getElementById(progressContainer).clientWidth;
 	const clickX = e.offsetX;
 	const duration = document.getElementById(audio).duration;
@@ -176,7 +154,8 @@ function setProgress(e) {
 }
 
 //get duration & currentTime for Time of song
-function DurTime (e) {
+DurTime =  (e) => 
+{
 	const {duration,currentTime} = e.srcElement;
 	var sec;
 	var sec_d;
@@ -257,6 +236,7 @@ const startPlayTrack = (element) =>
 	{
 		started = true;
 		document.getElementById(trackGame).style.display = '';
+    playedSongs.push(songIndex);
 		loadSong(songs[songIndex]);
 		playSong();
 		element.style.display = 'none';
@@ -273,9 +253,7 @@ const afterPlayTrack = () =>
 			pauseSong();
 		document.getElementById(trackGame).style.display = 'none';
 		activateQuiz();
-		// document.getElementById(quizGame).style.display = '';
-		// buildQuiz();
-		// showSlide(currentSlide);
+    restartQuiz();
 	}
 	
 };
@@ -336,9 +314,17 @@ const restartQuiz = () =>
     document.querySelector(next_btn).classList.remove("show"); //hide the next button
 }
 
+const playNextSongQuiz = () =>
+{
+  document.getElementById(trackGame).style.display = '';
+  playedTrack = false;
+  nextSong();
+  document.querySelector(result_box).classList.remove("activeResult");
+}
+
 const quitReloadQuiz = () =>
 {
-	window.location.reload();
+    window.location.reload();
 }
 
 const bottom_ques_counter = "footer .total_que";
@@ -417,6 +403,12 @@ function optionSelected(answer){
     document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
 }
 function showResult(){
+  numSongs--;
+  if (numSongs == 0)
+  {
+    document.getElementById("nextsong").style.display = 'none';
+  }
+
     document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
     document.querySelector(quiz_box).classList.remove("activeQuiz"); //hide quiz box
     document.querySelector(result_box).classList.add("activeResult"); //show result box
@@ -445,22 +437,7 @@ function startTimer(time){
             document.querySelector(timeCount).textContent = "0" + addZero; //add a 0 before time value
         }
         if(time < 0){ //if timer is less than 0
-			nextQuestion();
-            // clearInterval(counter); //clear counter
-            // document.querySelector(timeText).textContent = "Time Off"; //change the time text to time off
-            // const allOptions = document.querySelector(option_list).children.length; //getting all option items
-            // let correcAns = questions[que_count].answer; //getting correct answer from array
-            // for(i=0; i < allOptions; i++){
-            //     if(document.querySelector(option_list).children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
-            //         document.querySelector(option_list).children[i].setAttribute("class", "option correct"); //adding green color to matched option
-            //         document.querySelector(option_list).children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
-            //         console.log("Time Off: Auto selected correct answer.");
-            //     }
-            // }
-            // for(i=0; i < allOptions; i++){
-            //     document.querySelector(option_list).children[i].classList.add("disabled"); //once user select an option then disabled all options
-            // }
-            // document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
+			    nextQuestion();
         }
     }
 }
