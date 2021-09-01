@@ -1,3 +1,4 @@
+const startGame = 'start-game';
 const musicContainer = 'music-container';
 const trackGame = 'track-game';
 const playBtn = 'play';
@@ -21,75 +22,151 @@ const nextButton = "buttonNextQuiz";
 
 let numSongs = 3;
 
+let songs =
+[
+  {
+    name: "Rainy Day",
+    answers: [
+      "Night in the Woods",
+      "Bea Santello",
+      "2017",
+      "Alec Holowka"
+    ]
+  },
+  {
+    name: "Drowning",
+    answers: [
+      "Sonic 1",
+      "Doctor Eggman",
+      "1991",
+      "Hirokazu Yasuhara"
+    ]
+  },
+  {
+    name: "Bloody Tears",
+    answers: [
+      "Castlevania II: Simon’s Quest",
+      "Dracula",
+      "1987",
+      "Kenichi Matsubara"
+    ]
+  },
+  {
+    name: "Song of Storms",
+    answers: [
+      "Legend of Zelda: Ocarina of Time",
+      "Ganondorf",
+      "1998",
+      "Koji Kondo"
+    ]
+  },
+  {
+    name: "Ori, Lost in the Storm",
+    answers: [
+      "Ori and the Blind Forest",
+      "Naru",
+      "2015",
+      "Gareth Coker"
+    ]
+  },
+  {
+    name: "A Thief's End",
+    answers: [
+      "Uncharted 4: A Thief's End",
+      "Elena Fisher",
+      "2016",
+      "Henry Jackman"
+    ]
+  },
+  {
+    name: "Not Tomorrow",
+    answers: [
+      "Silent Hill",
+      "Cheryl Mason",
+      "1999",
+      "Akira Yamaoka"
+    ]
+  },
+  {
+    name: "Main Theme",
+    answers: [
+      "Animal Crossing: New Leaf",
+      "Isabelle",
+      "2012",
+      "Kazumi Totaka"
+    ]
+  },
+  {
+    name: "Aquatic Ambience",
+    answers: [
+      "Donkey Kong Country",
+      "Donkey Kong",
+      "1994",
+      "David Wise"
+    ]
+  },
+  {
+    name: "Dr. Wily's Castle",
+    answers: [
+      "Mega Man 2",
+      "Dr. Wily",
+      "1988",
+      "Takashi Tateishi"
+    ]
+  },
+  {
+    name: "Scattered and Lost",
+    answers: [
+      "Celeste",
+      "Granny",
+      "2018",
+      "Lena Raine"
+    ]
+  },
+  {
+    name: "Megalovania",
+    answers: [
+      "Undertale",
+      "Toriel",
+      "2015",
+      "Toby Fox"
+    ]
+  },
+  {
+    name: "Fierce Battle",
+    answers: [
+      "Shin Megami Tensei III",
+      "Demi-fiend",
+      "2003",
+      "Shoji Meguro"
+    ]
+  },
+  {
+    name: "Devil Trigger",
+    answers: [
+      "Devil May Cry 5",
+      "V",
+      "2019",
+      "Casey Edwards"
+    ]
+  },
+  {
+    name: "Crisis Mission",
+    answers: [
+      "Metroid Fusion",
+      "SA-X",
+      "2002",
+      "Minako Hamano"
+    ]
+  }
+
+]
+
 let questions = [
-    {
-    numb: 1,
-    question: "What does HTML stand for?",
-    answer: "Hyper Text Markup Language",
-    options: [
-      "Hyper Text Preprocessor",
-      "Hyper Text Markup Language",
-      "Hyper Text Multiple Language",
-      "Hyper Tool Multi Language"
-    ]
-  },
-    {
-    numb: 2,
-    question: "What does CSS stand for?",
-    answer: "Cascading Style Sheet",
-    options: [
-      "Common Style Sheet",
-      "Colorful Style Sheet",
-      "Computer Style Sheet",
-      "Cascading Style Sheet"
-    ]
-  },
-    {
-    numb: 3,
-    question: "What does PHP stand for?",
-    answer: "Hypertext Preprocessor",
-    options: [
-      "Hypertext Preprocessor",
-      "Hypertext Programming",
-      "Hypertext Preprogramming",
-      "Hometext Preprocessor"
-    ]
-  },
-    {
-    numb: 4,
-    question: "What does SQL stand for?",
-    answer: "Structured Query Language",
-    options: [
-      "Stylish Question Language",
-      "Stylesheet Query Language",
-      "Statement Question Language",
-      "Structured Query Language"
-    ]
-  },
-    {
-    numb: 5,
-    question: "What does XML stand for?",
-    answer: "eXtensible Markup Language",
-    options: [
-      "eXtensible Markup Language",
-      "eXecutable Multiple Language",
-      "eXTra Multi-Program Language",
-      "eXamine Multiple Language"
-    ]
-  },
-  // you can uncomment the below codes and make duplicate as more as you want to add question
-  // but remember you need to give the numb value serialize like 1,2,3,5,6,7,8,9.....
-  //   {
-  //   numb: 6,
-  //   question: "Your Question is Here",
-  //   answer: "Correct answer of the question is here",
-  //   options: [
-  //     "Option 1",
-  //     "option 2",
-  //     "option 3",
-  //     "option 4"
-  //   ]
-  // },
+    "Which game does it come from?",
+    "The name of one character",
+    "Which year did the game was first released?",
+    "Who composed this track?"
 ];
 
 let started = false;
@@ -230,7 +307,7 @@ const musicPlayer = () =>
 	}
 }
 
-const startPlayTrack = (element) =>
+const startPlayTrack = () =>
 {
 	if (!started)
 	{
@@ -239,7 +316,7 @@ const startPlayTrack = (element) =>
     playedSongs.push(songIndex);
 		loadSong(songs[songIndex]);
 		playSong();
-		element.style.display = 'none';
+		document.getElementById(startGame).style.display = 'none';
 	}
 };
 
@@ -252,8 +329,7 @@ const afterPlayTrack = () =>
 		if (document.getElementById(musicContainer).classList.contains('play'))
 			pauseSong();
 		document.getElementById(trackGame).style.display = 'none';
-		activateQuiz();
-    restartQuiz();
+    activateQuiz();
 	}
 	
 };
@@ -288,6 +364,7 @@ let timeValue =  15;
 let que_count = 0;
 let que_numb = 1;
 let userScore = 0;
+let totalScore = 0;
 let counter;
 let counterLine;
 let widthValue = 0;
@@ -295,23 +372,20 @@ let widthValue = 0;
 
 const next_btn = "footer .next_btn";
 
-const restartQuiz = () =>
+const clearResults = () =>
 {
-	document.querySelector(quiz_box).classList.add("activeQuiz"); //show quiz box
-    document.querySelector(result_box).classList.remove("activeResult"); //hide result box
-    timeValue = 15; 
-    que_count = 0;
-    que_numb = 1;
-    userScore = 0;
-    widthValue = 0;
-    showQuetions(que_count); //calling showQestions function
-    queCounter(que_numb); //passing que_numb value to queCounter
-    clearInterval(counter); //clear counter
-    clearInterval(counterLine); //clear counterLine
-    startTimer(timeValue); //calling startTimer function
-    startTimerLine(widthValue); //calling startTimerLine function
-    document.querySelector(timeText).textContent = "Time Left"; //change the text of timeText to Time Left
-    document.querySelector(next_btn).classList.remove("show"); //hide the next button
+  document.querySelector(result_box).classList.remove("activeResult");
+  timeValue = 15; 
+  que_count = 0;
+  que_numb = 1;
+  userScore = 0;
+  widthValue = 0;
+  showQuetions(que_count); //calling showQestions function
+  queCounter(que_numb); //passing que_numb value to queCounter
+  clearInterval(counter); //clear counter
+  clearInterval(counterLine); //clear counterLine
+  document.querySelector(timeText).textContent = "Time Left";
+  document.querySelector(next_btn).classList.remove("show");
 }
 
 const playNextSongQuiz = () =>
@@ -319,7 +393,7 @@ const playNextSongQuiz = () =>
   document.getElementById(trackGame).style.display = '';
   playedTrack = false;
   nextSong();
-  document.querySelector(result_box).classList.remove("activeResult");
+  clearResults();
 }
 
 const quitReloadQuiz = () =>
@@ -376,7 +450,7 @@ function optionSelected(answer){
     clearInterval(counter); //clear counter
     clearInterval(counterLine); //clear counterLine
     let userAns = answer.textContent; //getting user selected option
-    let correcAns = questions[que_count].answer; //getting correct answer from array
+    let correcAns =  questions[que_count].options[questions[que_count].answer]; //getting correct answer from array
     const allOptions = document.querySelector(option_list).children.length; //getting all option items
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
@@ -403,29 +477,35 @@ function optionSelected(answer){
     document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
 }
 function showResult(){
+  let scoreTag = '';
+  totalScore += userScore;
   numSongs--;
+  document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
+  document.querySelector(quiz_box).classList.remove("activeQuiz"); //hide quiz box
+  document.querySelector(result_box).classList.add("activeResult"); //show result box
+  const scoreText = document.querySelector(result_box).querySelector(".score_text");
+  if(userScore > 2){ // if user scored more than 2
+      scoreTag = '<span>Good job, you got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+  }
+  else{ // if user scored less than 1
+      scoreTag = '<span>Sorry, you got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+  }
   if (numSongs == 0)
   {
     document.getElementById("nextsong").style.display = 'none';
+    if ((questions.length * playedSongs.length) * 0.7 > totalScore)
+    {
+      scoreTag += "<span>Wow, you are a soundtrack genius!</br>Good Job, you've completed the game!</span>";
+    }
+    else
+    {
+      scoreTag += "<span>Oops, looks like sounstracks aren't your thing. </br>You can try again at any time.</span>";
+    }
   }
+    
 
-    document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
-    document.querySelector(quiz_box).classList.remove("activeQuiz"); //hide quiz box
-    document.querySelector(result_box).classList.add("activeResult"); //show result box
-    const scoreText = document.querySelector(result_box).querySelector(".score_text");
-    if (userScore > 3){ // if user scored more than 3
-        //creating a new span tag and passing the user score number and total question number
-        let scoreTag = '<span>and congrats! , You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
-    }
-    else if(userScore > 1){ // if user scored more than 1
-        let scoreTag = '<span>and nice , You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
-    else{ // if user scored less than 1
-        let scoreTag = '<span>and sorry , You got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
+  scoreText.innerHTML = scoreTag;
+  
 }
 function startTimer(time){
     counter = setInterval(timer, 1000);

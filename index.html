@@ -14,9 +14,9 @@
   </head>
   <body>
     <h1>Soundtrack Game</h1>
-    <div id="start-game" onclick="startPlayTrack(this)">
-      <h2>Click here to start the game!</h2>
-      <h3>Listen to a random video game soundtrack and try to answer correcly all the questions!</h3>
+    <div id="start-game">
+      <h2>Are you good with game soundtracks? Let's see! Listen to 5 different soundtracks and try to answer the quiz. </h2>
+      <button class="quiz-button" onclick="startPlayTrack()">Click here to start the game</button>
     </div>
 
     <div id="track-game" class="track-game" style="display: none !important;">
@@ -47,13 +47,12 @@
     <!-- start Quiz button -->
     <!-- Info Box -->
     <div class="info_box">
-        <div class="info-title"><span>Some Rules of this Quiz</span></div>
+        <div class="info-title"><span>Quiz Rules</span></div>
         <div class="info-list">
-            <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
-            <div class="info">2. Once you select your answer, it can't be undone.</div>
-            <div class="info">3. You can't select any option once time goes off.</div>
-            <div class="info">4. You can't exit from the Quiz while you're playing.</div>
-            <div class="info">5. You'll get points on the basis of your correct answers.</div>
+            <div class="info">1. Be quick! You have <span>15 seconds</span> to answer each question.</div>
+            <div class="info">2. Think well! Once you choose the answer, you can't choose another one.</div>
+            <div class="info">3. Watch your time! Once your time is off, you can't select an option.</div>
+            <div class="info">4. Choose wisely! Get one point for every correct answer.</div>
         </div>
         <div class="buttons">
             <button class="restart" onclick="startQuiz()">Continue</button>
@@ -62,7 +61,7 @@
     <!-- Quiz Box -->
     <div class="quiz_box">
         <header>
-            <div class="title">Awesome Quiz Application</div>
+            <div class="title">Quiz</div>
             <div class="timer">
                 <div class="time_left_txt">Time Left</div>
                 <div class="timer_sec">15</div>
@@ -90,7 +89,7 @@
         <div class="icon">
             <i class="fas fa-crown"></i>
         </div>
-        <div class="complete_text">You've completed the Quiz!</div>
+        <div class="complete_text">You completed the quiz!</div>
         <div class="score_text">
             <!-- Here I've inserted Score Result from JavaScript -->
         </div>
