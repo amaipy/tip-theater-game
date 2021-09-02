@@ -22,12 +22,14 @@ const nextButton = "buttonNextQuiz";
 
 let numSongs = 3;
 
-let songs =
+const songsList =
 [
   {
     name: "Rainy Day",
+    file: "rainy_day",
     answers: [
       "Night in the Woods",
+      "Adventure",
       "Bea Santello",
       "2017",
       "Alec Holowka"
@@ -35,8 +37,10 @@ let songs =
   },
   {
     name: "Drowning",
+    file: "drowning",
     answers: [
       "Sonic 1",
+      "Platform",
       "Doctor Eggman",
       "1991",
       "Hirokazu Yasuhara"
@@ -44,8 +48,10 @@ let songs =
   },
   {
     name: "Bloody Tears",
+    file: "bloody_tears",
     answers: [
       "Castlevania II: Simon’s Quest",
+      "Action-Adventure",
       "Dracula",
       "1987",
       "Kenichi Matsubara"
@@ -53,8 +59,10 @@ let songs =
   },
   {
     name: "Song of Storms",
+    file: "song_of_storms",
     answers: [
       "Legend of Zelda: Ocarina of Time",
+      "Action-Adventure",
       "Ganondorf",
       "1998",
       "Koji Kondo"
@@ -62,8 +70,10 @@ let songs =
   },
   {
     name: "Ori, Lost in the Storm",
+    file: "ori_lost_in_the_storm",
     answers: [
       "Ori and the Blind Forest",
+      "Platform",
       "Naru",
       "2015",
       "Gareth Coker"
@@ -71,8 +81,10 @@ let songs =
   },
   {
     name: "A Thief's End",
+    file: "a_thiefs_end",
     answers: [
       "Uncharted 4: A Thief's End",
+      "Action-Adventure",
       "Elena Fisher",
       "2016",
       "Henry Jackman"
@@ -80,8 +92,10 @@ let songs =
   },
   {
     name: "Not Tomorrow",
+    file: "not_tomorrow",
     answers: [
       "Silent Hill",
+      "Survival Horror",
       "Cheryl Mason",
       "1999",
       "Akira Yamaoka"
@@ -89,8 +103,10 @@ let songs =
   },
   {
     name: "Main Theme",
+    file: "main_theme",
     answers: [
       "Animal Crossing: New Leaf",
+      "Life Simulation",
       "Isabelle",
       "2012",
       "Kazumi Totaka"
@@ -98,8 +114,10 @@ let songs =
   },
   {
     name: "Aquatic Ambience",
+    file: "aquatic_ambience",
     answers: [
       "Donkey Kong Country",
+      "Platform",
       "Donkey Kong",
       "1994",
       "David Wise"
@@ -107,8 +125,10 @@ let songs =
   },
   {
     name: "Dr. Wily's Castle",
+    file: "dr_wilys_castle",
     answers: [
       "Mega Man 2",
+      "Platform",
       "Dr. Wily",
       "1988",
       "Takashi Tateishi"
@@ -116,8 +136,10 @@ let songs =
   },
   {
     name: "Scattered and Lost",
+    file: "scattered_and_lost",
     answers: [
       "Celeste",
+      "Platform",
       "Granny",
       "2018",
       "Lena Raine"
@@ -125,8 +147,10 @@ let songs =
   },
   {
     name: "Megalovania",
+    file: "megalovania",
     answers: [
       "Undertale",
+      "RPG",
       "Toriel",
       "2015",
       "Toby Fox"
@@ -134,8 +158,10 @@ let songs =
   },
   {
     name: "Fierce Battle",
+    file: "fierce_battle",
     answers: [
       "Shin Megami Tensei III",
+      "RPG",
       "Demi-fiend",
       "2003",
       "Shoji Meguro"
@@ -143,8 +169,10 @@ let songs =
   },
   {
     name: "Devil Trigger",
+    file: "devil_trigger",
     answers: [
       "Devil May Cry 5",
+      "Action-Adventure",
       "V",
       "2019",
       "Casey Edwards"
@@ -152,8 +180,10 @@ let songs =
   },
   {
     name: "Crisis Mission",
+    file: "crisis_mission",
     answers: [
       "Metroid Fusion",
+      "Action-Adventure",
       "SA-X",
       "2002",
       "Minako Hamano"
@@ -164,6 +194,7 @@ let songs =
 
 let questions = [
     "Which game does it come from?",
+    "What is the main game's genre?",
     "The name of one character",
     "Which year did the game was first released?",
     "Who composed this track?"
@@ -172,18 +203,14 @@ let questions = [
 let started = false;
 let playedTrack = false;
 
-// Song titles
-const songs = ['hey', 'summer', 'ukulele'];
-
 let playedSongs = []
 // Keep track of song
-let songIndex = Math.floor(Math.random() * songs.length);
+let songIndex = Math.floor(Math.random() * songsList.length);
 
 // Update song details
 loadSong = (song) => 
 {
   document.getElementById(audio).src = `music/${song}.mp3`;
-  document.getElementById(cover).src = `images/${song}.jpg`;
 }
 
 // Play song
@@ -206,9 +233,9 @@ pauseSong = () =>
 
 nextSong = () =>
 {
-  while (playedSongs.includes(songIndex = Math.floor(Math.random() * songs.length)));
+  while (playedSongs.includes(songIndex = Math.floor(Math.random() * songsList.length)));
   playedSongs.push(songIndex);
-  loadSong(songs[songIndex]);
+  loadSong(songsList[songIndex].file);
   playSong();
 }
 
@@ -314,7 +341,7 @@ const startPlayTrack = () =>
 		started = true;
 		document.getElementById(trackGame).style.display = '';
     playedSongs.push(songIndex);
-		loadSong(songs[songIndex]);
+		loadSong(songsList[songIndex].file);
 		playSong();
 		document.getElementById(startGame).style.display = 'none';
 	}
@@ -427,12 +454,13 @@ const nextQuestion = () =>
 // getting questions and options from array
 function showQuetions(index){
     const que_text = document.querySelector(".que_text");
+    const options = shuffle(selectAnswers(index));
     //creating a new span and div tag for question and option and passing the value using array index
-    let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
-    let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+    let que_tag = '<span>'+ (index + 1) + ". " + questions[index] +'</span>';
+    let option_tag = '<div class="option"><span>'+ options[0] +'</span></div>'
+    + '<div class="option"><span>'+ options[1] +'</span></div>'
+    + '<div class="option"><span>'+ options[2] +'</span></div>'
+    + '<div class="option"><span>'+ options[3] +'</span></div>';
     que_text.innerHTML = que_tag; //adding new span tag inside que_tag
     document.querySelector(option_list).innerHTML = option_tag; //adding new div tag inside option_tag
     
@@ -450,7 +478,7 @@ function optionSelected(answer){
     clearInterval(counter); //clear counter
     clearInterval(counterLine); //clear counterLine
     let userAns = answer.textContent; //getting user selected option
-    let correcAns =  questions[que_count].options[questions[que_count].answer]; //getting correct answer from array
+    let correcAns =  songsList[songIndex].answers[que_count]; //getting correct answer from array
     const allOptions = document.querySelector(option_list).children.length; //getting all option items
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
@@ -477,7 +505,7 @@ function optionSelected(answer){
     document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
 }
 function showResult(){
-  let scoreTag = '';
+  let scoreTag = '<span><p><i>' + songsList[songIndex].answers[0] + '</i> - ' + songsList[songIndex].name + ', composed by ' + songsList[songIndex].answers[4] + '</p></span>';
   totalScore += userScore;
   numSongs--;
   document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
@@ -485,10 +513,10 @@ function showResult(){
   document.querySelector(result_box).classList.add("activeResult"); //show result box
   const scoreText = document.querySelector(result_box).querySelector(".score_text");
   if(userScore > 2){ // if user scored more than 2
-      scoreTag = '<span>Good job, you got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+      scoreTag += '<span>Good job, you got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
   }
   else{ // if user scored less than 1
-      scoreTag = '<span>Sorry, you got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+      scoreTag += '<span>Sorry, you got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
   }
   if (numSongs == 0)
   {
@@ -499,7 +527,7 @@ function showResult(){
     }
     else
     {
-      scoreTag += "<span>Oops, looks like sounstracks aren't your thing. </br>You can try again at any time.</span>";
+      scoreTag += "<span>Oops, looks like soundtracks aren't your thing. </br>You can try again at any time.</span>";
     }
   }
     
@@ -535,4 +563,38 @@ function queCounter(index){
     //creating a new span tag and passing the question number and total question
     let totalQueCounTag = '<span><p>'+ index +'</p> of <p>'+ questions.length +'</p> Questions</span>';
     document.querySelector(bottom_ques_counter).innerHTML = totalQueCounTag;  //adding new span tag inside bottom_ques_counter
+}
+
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+const selectAnswers = (index) => 
+{
+  let randomIndex;
+  let answers = [songsList[songIndex].answers[index]];
+  let allAnswers = songsList.map((song) => {return song.answers[index]});
+  while (answers.length != 4)
+  {
+    randomIndex = Math.floor(Math.random() * allAnswers.length);
+    if (answers.indexOf(allAnswers[randomIndex]) < 0)
+    {
+      answers.push(allAnswers[randomIndex]);
+    }
+  }
+  return answers;
 }
