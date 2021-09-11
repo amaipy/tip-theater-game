@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background-image: url("./images./background-17.png");
+  background-image: url("./images/background-17.png");
 
   /* Full height */
   height: 100%;
@@ -87,7 +87,6 @@ body > h1
 .img-container img {
   border-radius: 50%;
   object-fit: cover;
-  height: 110px;
   width: inherit;
   position: absolute;
   bottom: 0;
@@ -178,19 +177,6 @@ body > h1
 }
 
 
-.question{
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-.answers {
-  margin-bottom: 20px;
-  text-align: left;
-  display: inline-block;
-}
-.answers label{
-  display: block;
-  margin-bottom: 10px;
-}
 .quiz-button{
   margin: 0 10px;
   height: 45px;
@@ -211,19 +197,6 @@ body > h1
   background: #007bff;
 }
 
-.slide{
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-.active-slide{
-  opacity: 1;
-  z-index: 2;
-}
 .quiz-container{
   position: relative;
   height: 200px;
@@ -245,6 +218,7 @@ body > h1
 .start_btn,
 .info_box,
 .quiz_box,
+.popup_box,
 .result_box{
     position: absolute;
     top: 50%;
@@ -255,6 +229,7 @@ body > h1
 }
 .info_box.activeInfo,
 .quiz_box.activeQuiz,
+.popup_box.activePopup,
 .result_box.activeResult{
     opacity: 1;
     z-index: 5;
@@ -324,6 +299,72 @@ body > h1
     border: 1px solid #007bff;
     transition: all 0.3s ease;
 }
+
+
+.popup_box{
+  width: 420px;
+  background: #fff;
+  border-radius: 5px;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.popup_box .popup-title{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 25px 24px 10px 24px;
+  border-radius: 5px 5px 0 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+.popup_box .popup-content{
+  padding: 0px 24px;
+  line-height: 28px;
+  margin-bottom: 40px;
+}
+
+.popup_box .buttons{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  margin-bottom: 20px;
+}
+.popup_box .buttons button{
+  margin: 0 5px;
+  height: 40px;
+  width: 100px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  transition: all 0.3s ease;
+}
+
+
+.buttons button.restart_popup{
+  color: #fff;
+  background: #007bff;
+}
+.buttons button.restart_popup:hover{
+  background: #0263ca;
+}
+.buttons button.stay{
+  color: #007bff;
+  background: #fff;
+}
+.buttons button.stay:hover{
+  color: #fff;
+  background: #007bff;
+}
+
+
 .quiz_box{
     width: 550px;
     background: #fff;
@@ -557,9 +598,56 @@ footer button.show{
 }
 .buttons button.restart{
     color: #007bff;
+    display: none;
     background: #fff;
 }
 .buttons button.restart:hover{
     color: #fff;
     background: #007bff;
+}
+.buttons button.start{
+  color: #007bff;
+  background: #fff;
+}
+.buttons button.start:hover{
+  color: #fff;
+  background: #007bff;
+}
+
+.upper-buttons{
+	position:fixed;
+	right:0;
+  top: -70px;
+}
+
+.floating-button{
+  display:inline-block;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  margin-left: 10px;
+}
+
+.icon-button {
+  fill: #007bff;
+}
+
+.icon-button:hover{
+  fill: #0263ca;
+}
+
+.close-button{
+  display:inline-block;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: 17px;
 }

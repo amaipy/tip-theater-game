@@ -15,7 +15,7 @@
   <body>
     <h1>Soundtrack Game</h1>
     <div id="start-game">
-      <h2>Are you good with game soundtracks? Let's see! Listen to 5 different soundtracks and try to answer the quiz. </h2>
+      <h2>Are you good with game soundtracks? Let's see! Listen to 3 different soundtracks and try to answer the quiz. </h2>
       <button class="quiz-button" onclick="startPlayTrack()">Click here to start the game</button>
     </div>
 
@@ -31,7 +31,7 @@
         <audio src="" id="audio" onended="afterPlayTrack()" ontimeupdate="updateProgress(event); DurTime(event);"></audio>
   
         <div class="img-container">
-          <img src="images/ukulele.jpg" alt="music-cover" id="cover" />
+          <img src="images/disc.png" alt="music-cover" id="cover" />
         </div>
         <div class="navigation">
           <button id="play" class="action-btn action-btn-big" onclick="musicPlayer()">
@@ -49,17 +49,43 @@
     <div class="info_box">
         <div class="info-title"><span>Quiz Rules</span></div>
         <div class="info-list">
-            <div class="info">1. Be quick! You have <span>15 seconds</span> to answer each question.</div>
-            <div class="info">2. Think well! Once you choose the answer, you can't choose another one.</div>
-            <div class="info">3. Watch your time! Once your time is off, you can't select an option.</div>
-            <div class="info">4. Choose wisely! Get one point for every correct answer.</div>
+            <div class="info">Be quick! You have <span>15 seconds</span> to answer each question.</div>
+            <div class="info">You can only ask for a tip <span>once</span>.</div>
         </div>
         <div class="buttons">
-            <button class="restart" onclick="startQuiz()">Continue</button>
+            <button class="start" onclick="startQuiz()">Continue</button>
         </div>
     </div>
     <!-- Quiz Box -->
     <div class="quiz_box">
+      <div class="upper-buttons">
+        <button id="tip-button" title="Ask for a single tip" class="floating-button" onclick="openPopupTip()">
+            <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.86" height="62.86" viewBox="0 0 62.86 62.86">
+                <circle id="Elipse_1" data-name="Elipse 1" cx="31.5" cy="31.5" r="31.5" />
+                <g id="Grupo_1" data-name="Grupo 1" transform="translate(13.514 10.376)">
+                  <path id="Caminho_2" data-name="Caminho 2" d="M690.27,545.251h9.015s-.746-4.536,3.617-9.072a10.87,10.87,0,0,0,2.912-9.856s-2.567-8.517-11.122-8.747-13.493,9.589-10.048,15.847,4.347,1.487,5.627,11.911" transform="translate(-676.938 -511.151)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+                  <path id="Caminho_3" data-name="Caminho 3" d="M838.951,674.015l1.119,1.118" transform="translate(-810.441 -645.537)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_4" data-name="Caminho 4" d="M870.669,595.626h2.044" transform="translate(-837.688 -578.2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_5" data-name="Caminho 5" d="M838.638,508.767l1.248-1.248" transform="translate(-810.172 -502.515)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_6" data-name="Caminho 6" d="M759.978,474.408V472.03" transform="translate(-742.603 -472.03)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_7" data-name="Caminho 7" d="M674.566,509.62l-1.646-1.646" transform="translate(-667.819 -502.906)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_8" data-name="Caminho 8" d="M639.279,595.966h-2.538" transform="translate(-636.741 -578.492)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_9" data-name="Caminho 9" d="M675.227,672.336l-1.364,1.364" transform="translate(-668.629 -644.095)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_10" data-name="Caminho 10" d="M737.556,743.122h7.172" transform="translate(-723.342 -704.901)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                  <path id="Caminho_11" data-name="Caminho 11" d="M746.07,773.686h4.955" transform="translate(-730.655 -731.155)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                </g>
+            </svg>
+        </button>
+        <button title="Restart game" class="floating-button" onclick="openPopupReset()">
+          <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.86" height="62.86" viewBox="0 0 62.86 62.86">
+            <circle id="Elipse_1" data-name="Elipse 1" cx="31.434" cy="31.434" r="31.434" transform="translate(0 0)" />
+            <g id="Grupo_6" data-name="Grupo 6" transform="translate(58.69 24.131) rotate(120)">
+                <path id="Caminho_161" data-name="Caminho 161" d="M14.372,28.745A14.361,14.361,0,0,1,0,14.372H2.754A11.611,11.611,0,1,0,8.93,4.105L7.637,1.673a14.376,14.376,0,1,1,6.735,27.072Z" transform="translate(39.904 23.83) rotate(146)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.1"/>
+                <path id="Polígono_3" data-name="Polígono 3" d="M5.681,0l5.681,9.089H0Z" transform="matrix(-0.809, 0.588, -0.588, -0.809, 39.653, 15.682)" fill="#fff"/>
+            </g>
+        </svg>  
+        </button>
+      </div>
         <header>
             <div class="title">Quiz</div>
             <div class="timer">
@@ -84,6 +110,17 @@
             <button class="next_btn" onclick="nextQuestion()">Next</button>
         </footer>
     </div>
+    <!-- Pop up -->
+    <div class="popup_box">
+      <div class="popup-title"><span>Are you sure?</span> 
+        <button class="close-button" onclick="closeButtonPopup()"> <i class="fa fa-times"></i></button></div>
+      <div class="popup-content"></div>
+      <div class="buttons">
+        <button class="stay" onclick="closeButtonPopup()">Stay</button>
+        <button class="restart_popup" onclick="quitReloadQuiz()">Restart</button>
+      </div>
+  </div>
+
     <!-- Result Box -->
     <div class="result_box">
         <div class="icon">
@@ -94,7 +131,7 @@
             <!-- Here I've inserted Score Result from JavaScript -->
         </div>
         <div class="buttons">
-            <button class="restart" onclick="quitReloadQuiz()">Replay Game</button>
+            <button id = "restart" class="restart" onclick="quitReloadQuiz()">Replay Game</button>
             <button class="nextsong" onclick="playNextSongQuiz()" id="nextsong">Next Song</button>
         </div>
     </div>

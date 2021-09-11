@@ -27,6 +27,7 @@ const songsList =
   {
     name: "Rainy Day",
     file: "rainy_day",
+    tip: "You control a cat-like character returning to her hometown",
     answers: [
       "Night in the Woods",
       "Adventure",
@@ -38,6 +39,7 @@ const songsList =
   {
     name: "Drowning",
     file: "drowning",
+    tip: "You are very fast and blue",
     answers: [
       "Sonic 1",
       "Platform",
@@ -49,6 +51,7 @@ const songsList =
   {
     name: "Bloody Tears",
     file: "bloody_tears",
+    tip: '"What a horrible night to have a curse"',
     answers: [
       "Castlevania II: Simon’s Quest",
       "Action-Adventure",
@@ -60,6 +63,7 @@ const songsList =
   {
     name: "Song of Storms",
     file: "song_of_storms",
+    tip: "You play this song to make it start raining",
     answers: [
       "Legend of Zelda: Ocarina of Time",
       "Action-Adventure",
@@ -70,6 +74,7 @@ const songsList =
   },
   {
     name: "Ori, Lost in the Storm",
+    tip: "You are a small white guardian spirit",
     file: "ori_lost_in_the_storm",
     answers: [
       "Ori and the Blind Forest",
@@ -82,6 +87,7 @@ const songsList =
   {
     name: "A Thief's End",
     file: "a_thiefs_end",
+    tip: "You are looking for a long-lost treasure",
     answers: [
       "Uncharted 4: A Thief's End",
       "Action-Adventure",
@@ -93,6 +99,7 @@ const songsList =
   {
     name: "Not Tomorrow",
     file: "not_tomorrow",
+    tip: "You are looking for your missing adopted daughter in a mysterious town",
     answers: [
       "Silent Hill",
       "Survival Horror",
@@ -104,6 +111,7 @@ const songsList =
   {
     name: "Main Theme",
     file: "main_theme",
+    tip: "You are the mayor in a town full of anthropomorphic animals",
     answers: [
       "Animal Crossing: New Leaf",
       "Life Simulation",
@@ -115,6 +123,7 @@ const songsList =
   {
     name: "Aquatic Ambience",
     file: "aquatic_ambience",
+    tip: "You are recovering your stolen banana hoard",
     answers: [
       "Donkey Kong Country",
       "Platform",
@@ -126,6 +135,7 @@ const songsList =
   {
     name: "Dr. Wily's Castle",
     file: "dr_wilys_castle",
+    tip: "You are on your way to defeat a evil Dr. and his rogue robots",
     answers: [
       "Mega Man 2",
       "Platform",
@@ -137,6 +147,7 @@ const songsList =
   {
     name: "Scattered and Lost",
     file: "scattered_and_lost",
+    tip: "You are trying to reach the top of a mountain, fighting your inner demons along the way",
     answers: [
       "Celeste",
       "Platform",
@@ -148,6 +159,7 @@ const songsList =
   {
     name: "Megalovania",
     file: "megalovania",
+    tip: "You feel like you're going to have a bad time",
     answers: [
       "Undertale",
       "RPG",
@@ -159,6 +171,7 @@ const songsList =
   {
     name: "Fierce Battle",
     file: "fierce_battle",
+    tip: "You have demonic powers hee ho!",
     answers: [
       "Shin Megami Tensei III",
       "RPG",
@@ -170,6 +183,7 @@ const songsList =
   {
     name: "Devil Trigger",
     file: "devil_trigger",
+    tip: "You kill enemies with style",
     answers: [
       "Devil May Cry 5",
       "Action-Adventure",
@@ -181,6 +195,7 @@ const songsList =
   {
     name: "Crisis Mission",
     file: "crisis_mission",
+    tip: "You are a bounty hunter investigating a space station full of organisms infected with X parasite",
     answers: [
       "Metroid Fusion",
       "Action-Adventure",
@@ -369,7 +384,7 @@ const time_line = "header .time_line";
 const timeText = ".timer .time_left_txt";
 const timeCount = ".timer .timer_sec";
 // if startQuiz button clicked
-
+const quiz_title = ".quiz_box > header > div.title"
 
 const activateQuiz = () => 
 {
@@ -384,6 +399,8 @@ const startQuiz = () =>
     queCounter(1); //passing 1 parameter to queCounter
     startTimer(15); //calling startTimer function
     startTimerLine(0); //calling startTimerLine function
+  document.querySelector(quiz_title).textContent = "Quiz - " + (numSongs * -1 + 4) + "º song";
+    
 }
 
 
@@ -395,6 +412,9 @@ let totalScore = 0;
 let counter;
 let counterLine;
 let widthValue = 0;
+
+let currentTime = 15;
+let currentLineTime = 0;
 
 
 const next_btn = "footer .next_btn";
@@ -453,6 +473,7 @@ const nextQuestion = () =>
 
 // getting questions and options from array
 function showQuetions(index){
+
     const que_text = document.querySelector(".que_text");
     const options = shuffle(selectAnswers(index));
     //creating a new span and div tag for question and option and passing the value using array index
@@ -505,7 +526,7 @@ function optionSelected(answer){
     document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
 }
 function showResult(){
-  let scoreTag = '<span><p><i>' + songsList[songIndex].answers[0] + '</i> - ' + songsList[songIndex].name + ', composed by ' + songsList[songIndex].answers[4] + '</p></span>';
+  let scoreTag = '<span><p><i>' + songsList[songIndex].answers[0] + '</i> - ' + songsList[songIndex].name + '</br> Composed by ' + songsList[songIndex].answers[4] + '</p></span>';
   totalScore += userScore;
   numSongs--;
   document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
@@ -520,16 +541,21 @@ function showResult(){
   }
   if (numSongs == 0)
   {
+    scoreTag += '<span> Total score: <p>' + totalScore + '</p> out of <p>' +  (questions.length * playedSongs.length) + '</p></span>';
     document.getElementById("nextsong").style.display = 'none';
-    if ((questions.length * playedSongs.length) * 0.7 > totalScore)
+    
+    if ((questions.length * playedSongs.length) * 0.6 <= totalScore)
     {
       scoreTag += "<span>Wow, you are a soundtrack genius!</br>Good Job, you've completed the game!</span>";
     }
     else
     {
       scoreTag += "<span>Oops, looks like soundtracks aren't your thing. </br>You can try again at any time.</span>";
+      document.getElementById("restart").style.display = 'block';
     }
   }
+
+
     
 
   scoreText.innerHTML = scoreTag;
@@ -538,6 +564,7 @@ function showResult(){
 function startTimer(time){
     counter = setInterval(timer, 1000);
     function timer(){
+        currentTime = time;
         document.querySelector(timeCount).textContent = time; //changing the value of timeCount with time value
         time--; //decrement the time value
         if(time < 9){ //if timer is less than 9
@@ -552,6 +579,7 @@ function startTimer(time){
 function startTimerLine(time){
     counterLine = setInterval(timer, 29);
     function timer(){
+        currentLineTime = time;
         time += 1; //upgrading time value with 1
         document.querySelector(time_line).style.width = time + "px"; //increasing width of time_line with px by time value
         if(time > 549){ //if time value is greater than 549
@@ -597,4 +625,48 @@ const selectAnswers = (index) =>
     }
   }
   return answers;
+}
+
+const popup_box = ".popup_box";
+const popup_title = ".popup-title > span";
+const popup_content = ".popup-content";
+const tip_button = "tip-button";
+const popup_buttons = ".popup_box .buttons";
+
+
+
+const showPopup = (title, content, buttons) =>
+{
+  clearInterval(counterLine); //clear counterLine
+  clearInterval(counter); //clear counter
+  document.querySelector(popup_box).classList.add("activePopup");
+  document.querySelector(quiz_box).classList.remove("activeQuiz");
+  document.querySelector(popup_title).textContent = title;
+  document.querySelector(popup_content).textContent = content;
+  document.querySelector(popup_buttons).style.display = 
+  buttons ? 'flex' : 'none';
+  
+}
+
+const closeButtonPopup = () => 
+{
+  startTimer(currentTime); //calling startTimer function
+  startTimerLine(currentLineTime); //calling startTimerLine function
+  document.querySelector(popup_box).classList.remove("activePopup");
+  document.querySelector(quiz_box).classList.add("activeQuiz");
+}
+
+const openPopupReset = () => 
+{
+  let title = "Are you sure?";
+  let content = "You will return to the home screen";
+  showPopup(title, content, true);
+}
+
+const openPopupTip = () => 
+{
+  let title = "Tip";
+  let content = songsList[songIndex].tip;
+  document.getElementById(tip_button).style.display = 'none';
+  showPopup(title, content, false);
 }
