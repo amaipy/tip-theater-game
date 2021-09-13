@@ -21,79 +21,147 @@ const previousButton = "previous";
 const nextButton = "buttonNextQuiz";
 
 let numSongs = 3;
+let numEasy = 2;
+
+const easyAnswers = 
+[
+  [
+    "Breaking Ice", 
+    "War of the Video Game Worlds", 
+    "Suburban Skating", 
+    "Ninja Baseball Bat Man Arcade", 
+    "Spaghetti Zone", 
+    "Swamp Boater", 
+    "Crash of Deception", 
+    "Blockcraze", 
+    "Resist of Campaigns", 
+    "Rule of Privilige", 
+    "Evocraft",
+    "Geocore" 
+  ],
+  [
+    "Trash can",
+    "Brick",
+    "Paradise",
+    "House plant",
+    "Keyboard",
+    "Mug",
+    "Lamp",
+    "Bed",
+    "Cable"
+  ],
+  [
+    "Elon Musk",
+    "Kim Kardashian",
+    "Katy Perry",
+    "Keanu Reeves",
+    "Adam Sandler",
+    "Elvis Presley",
+    "Elen DeGeneres",
+    "Britney Spears",
+    "Julia Roberts",
+    "Dwayne Johnson",
+    "Leonardo DiCaprio"
+  ],
+  [
+    "2079",
+    "1884",
+    "3333",
+    "2851",
+    "1682",
+    "1704",
+    "3001",
+    "1698",
+    "1374",
+    "1505"
+  ],
+  [
+    "Frédéric Chopin",
+    "Wolfgang Amadeus Mozart",
+    "Ludwig van Beethoven",
+    "Justin Bieber",
+    "Michael Jackson",
+    "John Lennon",
+    "Madonna",
+    "Bob Marley",
+    "Lady Gaga",
+    "Freddie Mercury",
+    "Bruno Mars"
+  ]
+]
 
 const songsList =
 [
   {
-    name: "Rainy Day",
-    file: "rainy_day",
-    tip: "You control a cat-like character returning to her hometown",
+    name: "San Andreas Theme Song",
+    file: "san_andreas",
+    tip: "You are a former gangster returning home to attend to your mother's funeral",
     answers: [
-      "Night in the Woods",
-      "Adventure",
-      "Bea Santello",
-      "2017",
-      "Alec Holowka"
+      "Grand Theft Auto: San Andreas",
+      "Action-Adventure",
+      "CJ",
+      "2004",
+      "Michael Hunter"
     ]
   },
   {
     name: "Drowning",
     file: "drowning",
-    tip: "You are very fast and blue",
+    tip: "You are blue and run very fast",
     answers: [
       "Sonic 1",
       "Platform",
       "Doctor Eggman",
       "1991",
-      "Hirokazu Yasuhara"
+      "Yukifumi Makino"
     ]
   },
   {
-    name: "Bloody Tears",
-    file: "bloody_tears",
-    tip: '"What a horrible night to have a curse"',
+    name: "Dracula's Castle",
+    file: "draculas_castle",
+    tip: '"What is a man? A miserable little pile of secrets!"',
     answers: [
-      "Castlevania II: Simon’s Quest",
-      "Action-Adventure",
-      "Dracula",
-      "1987",
-      "Kenichi Matsubara"
+      "Castlevania: Symphony of the Night",
+      "Action-RPG",
+      "Alucard",
+      "1997",
+      "Michiru Yamane"
     ]
   },
   {
-    name: "Song of Storms",
-    file: "song_of_storms",
-    tip: "You play this song to make it start raining",
+    name: "Overworld",
+    file: "overworld_zelda",
+    tip: '“IT’S DANGEROUS TO GO ALONE! TAKE THIS”',
     answers: [
-      "Legend of Zelda: Ocarina of Time",
+      "Legend of Zelda",
       "Action-Adventure",
-      "Ganondorf",
-      "1998",
+      "Ganon",
+      "1986",
       "Koji Kondo"
     ]
   },
   {
-    name: "Ori, Lost in the Storm",
-    tip: "You are a small white guardian spirit",
-    file: "ori_lost_in_the_storm",
+    name: "Opening Theme",
+    tip: "You gotta catch 'em all!",
+    file: "opening_theme",
     answers: [
-      "Ori and the Blind Forest",
-      "Platform",
-      "Naru",
-      "2015",
-      "Gareth Coker"
+      "Pokémon Red and Blue",
+      "RPG",
+      "Mewtwo",
+      "1998",
+      "Junichi Masuda"
     ]
   },
   {
-    name: "A Thief's End",
-    file: "a_thiefs_end",
-    tip: "You are looking for a long-lost treasure",
+    name: "Overworld Theme",
+    file: "overworld_theme",
+    tip: "Your objective is to save the Princess!",
     answers: [
-      "Uncharted 4: A Thief's End",
-      "Action-Adventure",
-      "Elena Fisher",
-      "2016",
-      "Henry Jackman"
+      "Super Mario Bros.",
+      "Platform",
+      "Mario",
+      "1985",
+      "Koji Kondo"
     ]
   },
   {
@@ -121,8 +189,8 @@ const songsList =
     ]
   },
   {
-    name: "Aquatic Ambience",
-    file: "aquatic_ambience",
+    name: "Title Screen",
+    file: "title_screen",
     tip: "You are recovering your stolen banana hoard",
     answers: [
       "Donkey Kong Country",
@@ -169,39 +237,39 @@ const songsList =
     ]
   },
   {
-    name: "Fierce Battle",
-    file: "fierce_battle",
-    tip: "You have demonic powers hee ho!",
+    name: "Theme",
+    file: "theme_crash",
+    tip: "You want to prevent Cortex's plans for world domination and rescue your girlfriend",
     answers: [
-      "Shin Megami Tensei III",
+      "Crash Bandicoot",
+      "Platform",
+      "Doctor Neo Cortex",
+      "1996",
+      "Josh Mancell"
+    ]
+  },
+  {
+    name: "Prelude",
+    file: "prelude",
+    tip: "You are the Light Warriors, who carry the world's four elemental crystals",
+    answers: [
+      "Final Fantasy I",
       "RPG",
-      "Demi-fiend",
-      "2003",
-      "Shoji Meguro"
+      "Garland",
+      "1987",
+      "Nobuo Uematsu"
     ]
   },
   {
-    name: "Devil Trigger",
-    file: "devil_trigger",
-    tip: "You kill enemies with style",
+    name: "Brinstar Theme",
+    file: "brinstar_theme",
+    tip: "You are a bounty hunter exploring the planet Zebes",
     answers: [
-      "Devil May Cry 5",
+      "Metroid",
       "Action-Adventure",
-      "V",
-      "2019",
-      "Casey Edwards"
-    ]
-  },
-  {
-    name: "Crisis Mission",
-    file: "crisis_mission",
-    tip: "You are a bounty hunter investigating a space station full of organisms infected with X parasite",
-    answers: [
-      "Metroid Fusion",
-      "Action-Adventure",
-      "SA-X",
-      "2002",
-      "Minako Hamano"
+      "Ridley",
+      "1986",
+      "Hirokazu Tanaka"
     ]
   }
 
@@ -399,7 +467,7 @@ const startQuiz = () =>
     queCounter(1); //passing 1 parameter to queCounter
     startTimer(15); //calling startTimer function
     startTimerLine(0); //calling startTimerLine function
-  document.querySelector(quiz_title).textContent = "Quiz - " + (numSongs * -1 + 4) + "º song";
+  document.querySelector(quiz_title).textContent = "Quiz - " + (numSongs * -1 + 4) + "º song out of 3";
     
 }
 
@@ -613,15 +681,26 @@ function shuffle(array) {
 
 const selectAnswers = (index) => 
 {
-  let randomIndex;
   let answers = [songsList[songIndex].answers[index]];
+  let currentEasyAnswers = easyAnswers[index];
+
+  answers = addAnswer(answers, currentEasyAnswers, (numEasy + 1));
+
   let allAnswers = songsList.map((song) => {return song.answers[index]});
-  while (answers.length != 4)
+  answers = addAnswer(answers, allAnswers, 4);
+
+  return answers;
+}
+
+const addAnswer = (answers, list, size) =>
+{
+  let randomIndex;
+  while (answers.length != size)
   {
-    randomIndex = Math.floor(Math.random() * allAnswers.length);
-    if (answers.indexOf(allAnswers[randomIndex]) < 0)
+    randomIndex = Math.floor(Math.random() * list.length);
+    if (answers.indexOf(list[randomIndex]) < 0)
     {
-      answers.push(allAnswers[randomIndex]);
+      answers.push(list[randomIndex]);
     }
   }
   return answers;
