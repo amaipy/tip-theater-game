@@ -2,6 +2,10 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
 html {
@@ -67,12 +71,12 @@ body > h1
   z-index: 10;
 }
 
-.img-container {
+#img-container {
   position: relative;
   width: 110px;
 }
 
-.img-container::after {
+#img-container::after {
   content: '';
   background-color: #fff;
   border-radius: 50%;
@@ -84,7 +88,7 @@ body > h1
   transform: translate(-50%, 50%);
 }
 
-.img-container img {
+#img-container img {
   border-radius: 50%;
   object-fit: cover;
   width: inherit;
@@ -96,7 +100,7 @@ body > h1
   animation-play-state: paused;
 }
 
-.music-container.play .img-container img {
+.music-container.play #img-container img {
   animation-play-state: running;
 }
 
@@ -110,7 +114,7 @@ body > h1
   }
 }
 
-.navigation {
+#navigation {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,7 +163,7 @@ body > h1
   margin: 0;
 }
 
-.progress-container {
+#progress-container {
   background: #fff;
   border-radius: 5px;
   cursor: pointer;
@@ -168,14 +172,13 @@ body > h1
   width: 100%;
 }
 
-.progress {
+#progress {
   background-color: #fe8daa;
   border-radius: 5px;
   height: 100%;
   width: 0%;
   transition: width 0.1s linear;
 }
-
 
 .quiz-button{
   margin: 0 10px;
@@ -201,14 +204,6 @@ body > h1
   position: relative;
   height: 200px;
   margin-top: 40px;
-}
-
-/* importing google fonts */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
 }
 
 ::selection{
@@ -299,7 +294,6 @@ body > h1
     border: 1px solid #007bff;
     transition: all 0.3s ease;
 }
-
 
 .popup_box{
   width: 420px;

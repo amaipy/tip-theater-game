@@ -22,25 +22,24 @@
     <div id="track-game" class="track-game" style="display: none !important;">
       <div class="music-container" id="music-container">
         <div class="music-info">
-          <h4 id="title"></h4>
-          <div class="progress-container" id="progress-container" onclick="setProgress(event)">
-            <div class="progress" id="progress"></div>
+          <div id="progress-container" onclick="setProgress(event)">
+            <div id="progress"></div>
           </div>
         </div>
   
         <audio src="" id="audio" onended="afterPlayTrack()" ontimeupdate="updateProgress(event); DurTime(event);"></audio>
   
-        <div class="img-container">
+        <div id="img-container">
           <img src="images/disc.png" alt="music-cover" id="cover" />
         </div>
-        <div class="navigation">
+        <div id="navigation">
           <button id="play" class="action-btn action-btn-big" onclick="musicPlayer()">
             <i class="fas fa-play"></i>
           </button>
         </div>
         
       </div>
-      <button id="next" class="quiz-button" onclick="afterPlayTrack()">Go to quiz</button>
+      <button class="quiz-button" onclick="afterPlayTrack()">Go to quiz</button>
       
     </div>
 
@@ -131,7 +130,7 @@
             <!-- Here I've inserted Score Result from JavaScript -->
         </div>
         <div class="buttons">
-            <button id = "restart" class="restart" onclick="quitReloadQuiz()">Replay Game</button>
+            <button id="restart" class="restart" onclick="quitReloadQuiz()">Replay Game</button>
             <button class="nextsong" onclick="playNextSongQuiz()" id="nextsong">Next Song</button>
         </div>
     </div>

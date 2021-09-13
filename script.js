@@ -2,24 +2,49 @@ const startGame = 'start-game';
 const musicContainer = 'music-container';
 const trackGame = 'track-game';
 const playBtn = 'play';
-const prevBtn = 'prev';
-const nextBtn = 'next';
 const audio = 'audio';
 const progress = 'progress';
 const progressContainer = 'progress-container';
-const title = 'title';
 const cover = 'cover';
 const currTime = '#currTime';
 const durTime = '#durTime';
-const quizGame = 'quiz-game';
 
-// Variables
-const quizContainer = 'quiz';
-const resultsContainer = 'results';
-const submitButton = 'submitQuiz';
-const previousButton = "previous";
-const nextButton = "buttonNextQuiz";
+const popup_box = ".popup_box";
+const popup_title = ".popup-title > span";
+const popup_content = ".popup-content";
+const tip_button = "tip-button";
+const popup_buttons = ".popup_box .buttons";
+const restartButton = "restart";
+const nextSongButton = "nextsong";
 
+const tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
+const crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
+
+const bottom_ques_counter = "footer .total_que";
+
+const info_box = ".info_box";
+const quiz_box = ".quiz_box";
+const result_box = ".result_box";
+const option_list = ".option_list";
+const time_line = "header .time_line";
+const timeText = ".timer .time_left_txt";
+const timeCount = ".timer .timer_sec";
+
+const quiz_title = ".quiz_box > header > div.title"
+
+const next_btn = "footer .next_btn";
+
+let timeValue =  15;
+let que_count = 0;
+let que_numb = 1;
+let userScore = 0;
+let totalScore = 0;
+let counter;
+let counterLine;
+let widthValue = 0;
+
+let currentTime = 15;
+let currentLineTime = 0;
 let numSongs = 3;
 let numEasy = 2;
 
@@ -287,17 +312,15 @@ let started = false;
 let playedTrack = false;
 
 let playedSongs = []
-// Keep track of song
+
 let songIndex = Math.floor(Math.random() * songsList.length);
 
-// Update song details
-loadSong = (song) => 
+const loadSong = (song) => 
 {
   document.getElementById(audio).src = `music/${song}.mp3`;
 }
 
-// Play song
-playSong = () => 
+const playSong = () => 
 {
 	document.getElementById(musicContainer).classList.add('play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.remove('fa-play');
@@ -305,8 +328,7 @@ playSong = () =>
 	document.getElementById(audio).play();
 }
 
-// Pause song
-pauseSong = () => 
+const pauseSong = () => 
 {
 	document.getElementById(musicContainer).classList.remove('play');
 	document.getElementById(playBtn).querySelector('i.fas').classList.add('fa-play');
@@ -314,7 +336,7 @@ pauseSong = () =>
 	document.getElementById(audio).pause();
 }
 
-nextSong = () =>
+const nextSong = () =>
 {
   while (playedSongs.includes(songIndex = Math.floor(Math.random() * songsList.length)));
   playedSongs.push(songIndex);
@@ -322,85 +344,84 @@ nextSong = () =>
   playSong();
 }
 
-// Update progress bar
-updateProgress = (e) => 
+const updateProgress = (e) => 
 {
 	const { duration, currentTime } = e.srcElement;
 	const progressPercent = (currentTime / duration) * 100;
 	document.getElementById(progress).style.width = `${progressPercent}%`;
 }
 
-// Set progress bar
-setProgress = (e) => 
+const setProgress = (e) => 
 {
 	const width = document.getElementById(progressContainer).clientWidth;
 	const clickX = e.offsetX;
 	const duration = document.getElementById(audio).duration;
-	
 	document.getElementById(audio).currentTime = (clickX / width) * duration;
 }
 
-//get duration & currentTime for Time of song
-DurTime =  (e) => 
+const DurTime = (e) => 
 {
 	const {duration,currentTime} = e.srcElement;
-	var sec;
-	var sec_d;
+	let sec;
+	let sec_d;
 
-	// define minutes currentTime
-	let min = (currentTime==null)? 0:
+	let min = (currentTime==null) ? 0:
 	 Math.floor(currentTime/60);
 	 min = min <10 ? '0'+min:min;
 
-	// define seconds currentTime
-	function get_sec (x) {
-		if(Math.floor(x) >= 60){
+	function get_sec (x) 
+  {
+		if(Math.floor(x) >= 60)
+    {
 			
-			for (var i = 1; i<=60; i++){
-				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) {
+			for (let i = 1; i<=60; i++)
+      {
+				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) 
+        {
 					sec = Math.floor(x) - (60*i);
 					sec = sec <10 ? '0'+sec:sec;
 				}
 			}
-		}else{
+		}
+    else
+    {
 		 	sec = Math.floor(x);
 		 	sec = sec <10 ? '0'+sec:sec;
-		 }
+		}
 	} 
 
 	get_sec (currentTime,sec);
 
-	// change currentTime DOM
 	if (document.querySelector(currTime))
 		document.querySelector(currTime).innerHTML = min +':'+ sec;
 
-	// define minutes duration
 	let min_d = (isNaN(duration) === true)? '0':
 		Math.floor(duration/60);
 	 min_d = min_d <10 ? '0'+min_d:min_d;
 
 
 	 function get_sec_d (x) {
-		if(Math.floor(x) >= 60){
-			
-			for (var i = 1; i<=60; i++){
-				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) {
+		if (Math.floor(x) >= 60)
+    {
+			for (let i = 1; i<=60; i++)
+      {
+				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) 
+        {
 					sec_d = Math.floor(x) - (60*i);
 					sec_d = sec_d <10 ? '0'+sec_d:sec_d;
 				}
 			}
-		}else{
+		}
+    else
+    {
 		 	sec_d = (isNaN(duration) === true)? '0':
 		 	Math.floor(x);
 		 	sec_d = sec_d <10 ? '0'+sec_d:sec_d;
 		 }
 	} 
-
-	// define seconds duration
 	
 	get_sec_d (duration);
 
-	// change duration DOM
 	if (document.querySelector(durTime))
 		document.querySelector(durTime).innerHTML = min_d +':'+ sec_d;
 		
@@ -409,10 +430,12 @@ DurTime =  (e) =>
 const musicPlayer = () =>
 {
 	const isPlaying = document.getElementById(musicContainer).classList.contains('play');
-
-	if (isPlaying) {
+	if (isPlaying) 
+  {
 		pauseSong();
-	} else {
+	} 
+  else 
+  {
 		playSong();
 	}
 }
@@ -428,7 +451,7 @@ const startPlayTrack = () =>
 		playSong();
 		document.getElementById(startGame).style.display = 'none';
 	}
-};
+}
 
 
 const afterPlayTrack = () =>
@@ -441,18 +464,7 @@ const afterPlayTrack = () =>
 		document.getElementById(trackGame).style.display = 'none';
     activateQuiz();
 	}
-	
-};
-
-const info_box = ".info_box";
-const quiz_box = ".quiz_box";
-const result_box = ".result_box";
-const option_list = ".option_list";
-const time_line = "header .time_line";
-const timeText = ".timer .time_left_txt";
-const timeCount = ".timer .timer_sec";
-// if startQuiz button clicked
-const quiz_title = ".quiz_box > header > div.title"
+}
 
 const activateQuiz = () => 
 {
@@ -461,31 +473,14 @@ const activateQuiz = () =>
 
 const startQuiz = () => 
 {
-	document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
-    document.querySelector(quiz_box).classList.add("activeQuiz"); //show quiz box
-    showQuetions(0); //calling showQestions function
-    queCounter(1); //passing 1 parameter to queCounter
-    startTimer(15); //calling startTimer function
-    startTimerLine(0); //calling startTimerLine function
-  document.querySelector(quiz_title).textContent = "Quiz - " + (numSongs * -1 + 4) + "º song out of 3";
-    
+	document.querySelector(info_box).classList.remove("activeInfo"); 
+  document.querySelector(quiz_box).classList.add("activeQuiz"); 
+  showQuetions(0); 
+  queCounter(1); 
+  startTimer(15);
+  startTimerLine(0);
+  document.querySelector(quiz_title).textContent = `Quiz - ${(numSongs * -1 + 4)}º song out of 3`;
 }
-
-
-let timeValue =  15;
-let que_count = 0;
-let que_numb = 1;
-let userScore = 0;
-let totalScore = 0;
-let counter;
-let counterLine;
-let widthValue = 0;
-
-let currentTime = 15;
-let currentLineTime = 0;
-
-
-const next_btn = "footer .next_btn";
 
 const clearResults = () =>
 {
@@ -495,10 +490,10 @@ const clearResults = () =>
   que_numb = 1;
   userScore = 0;
   widthValue = 0;
-  showQuetions(que_count); //calling showQestions function
-  queCounter(que_numb); //passing que_numb value to queCounter
-  clearInterval(counter); //clear counter
-  clearInterval(counterLine); //clear counterLine
+  showQuetions(que_count); 
+  queCounter(que_numb); 
+  clearInterval(counter); 
+  clearInterval(counterLine); 
   document.querySelector(timeText).textContent = "Time Left";
   document.querySelector(next_btn).classList.remove("show");
 }
@@ -513,104 +508,110 @@ const playNextSongQuiz = () =>
 
 const quitReloadQuiz = () =>
 {
-    window.location.reload();
+  window.location.reload();
 }
-
-const bottom_ques_counter = "footer .total_que";
-// if Next Que button clicked
 
 const nextQuestion = () =>
 {
-	if(que_count < questions.length - 1){ //if question count is less than total question length
-        que_count++; //increment the que_count value
-        que_numb++; //increment the que_numb value
-        showQuetions(que_count); //calling showQestions function
-        queCounter(que_numb); //passing que_numb value to queCounter
-        clearInterval(counter); //clear counter
-        clearInterval(counterLine); //clear counterLine
-        startTimer(timeValue); //calling startTimer function
-        startTimerLine(widthValue); //calling startTimerLine function
-        document.querySelector(timeText).textContent = "Time Left"; //change the timeText to Time Left
-        document.querySelector(next_btn).classList.remove("show"); //hide the next button
-    }else{
-        clearInterval(counter); //clear counter
-        clearInterval(counterLine); //clear counterLine
-        showResult(); //calling showResult function
-    }
+	if (que_count < questions.length - 1)
+  {
+    que_count++;
+    que_numb++; 
+    showQuetions(que_count); 
+    queCounter(que_numb); 
+    clearInterval(counter); 
+    clearInterval(counterLine); 
+    startTimer(timeValue); 
+    startTimerLine(widthValue); 
+    document.querySelector(timeText).textContent = "Time Left"; 
+    document.querySelector(next_btn).classList.remove("show"); 
+  }
+  else
+  {
+    clearInterval(counter); 
+    clearInterval(counterLine); 
+    showResult(); 
+  }
 }
 
-// getting questions and options from array
-function showQuetions(index){
+const showQuetions = (index) => 
+{
+  const que_text = document.querySelector(".que_text");
+  const options = shuffle(selectAnswers(index));
+  const que_tag = `<span> ${(index + 1)}.${questions[index]} </span>`;
+  const option_tag = `<div class="option"><span>${options[0]}</span></div> 
+  <div class="option"><span>${options[1]}</span></div>
+  <div class="option"><span>${options[2]}</span></div>
+  <div class="option"><span>${options[3]}</span></div>`;
+  que_text.innerHTML = que_tag; 
+  document.querySelector(option_list).innerHTML = option_tag; 
+  
+  const option = document.querySelector(option_list).querySelectorAll(".option");
+  for (let i=0; i < option.length; i++)
+  {
+    option[i].setAttribute("onclick", "optionSelected(this)");
+  }
+}
 
-    const que_text = document.querySelector(".que_text");
-    const options = shuffle(selectAnswers(index));
-    //creating a new span and div tag for question and option and passing the value using array index
-    let que_tag = '<span>'+ (index + 1) + ". " + questions[index] +'</span>';
-    let option_tag = '<div class="option"><span>'+ options[0] +'</span></div>'
-    + '<div class="option"><span>'+ options[1] +'</span></div>'
-    + '<div class="option"><span>'+ options[2] +'</span></div>'
-    + '<div class="option"><span>'+ options[3] +'</span></div>';
-    que_text.innerHTML = que_tag; //adding new span tag inside que_tag
-    document.querySelector(option_list).innerHTML = option_tag; //adding new div tag inside option_tag
+const optionSelected = (answer) =>
+{
+    clearInterval(counter); 
+    clearInterval(counterLine); 
+    let userAns = answer.textContent; 
+    let correcAns =  songsList[songIndex].answers[que_count]; 
+    const allOptions = document.querySelector(option_list).children.length; 
     
-    const option = document.querySelector(option_list).querySelectorAll(".option");
-    // set onclick attribute to all available options
-    for(i=0; i < option.length; i++){
-        option[i].setAttribute("onclick", "optionSelected(this)");
+    if (userAns == correcAns)
+    { 
+      userScore += 1; 
+      answer.classList.add("correct"); 
+      answer.insertAdjacentHTML("beforeend", tickIconTag); 
+      console.log("Correct Answer");
+      console.log("Your correct answers = " + userScore);
     }
+    else
+    {
+      answer.classList.add("incorrect"); 
+      answer.insertAdjacentHTML("beforeend", crossIconTag);
+      console.log("Wrong Answer");
+      for (let i=0; i < allOptions; i++)
+      {
+          if (document.querySelector(option_list).children[i].textContent == correcAns)
+          { 
+            document.querySelector(option_list).children[i].setAttribute("class", "option correct"); 
+            document.querySelector(option_list).children[i].insertAdjacentHTML("beforeend", tickIconTag); 
+            console.log("Auto selected correct answer.");
+          }
+      }
+    }
+    for (let i = 0; i < allOptions; i++)
+    {
+        document.querySelector(option_list).children[i].classList.add("disabled"); 
+    }
+    document.querySelector(next_btn).classList.add("show"); 
 }
-// creating the new div tags which for icons
-let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
-let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
-//if user clicked on option
-function optionSelected(answer){
-    clearInterval(counter); //clear counter
-    clearInterval(counterLine); //clear counterLine
-    let userAns = answer.textContent; //getting user selected option
-    let correcAns =  songsList[songIndex].answers[que_count]; //getting correct answer from array
-    const allOptions = document.querySelector(option_list).children.length; //getting all option items
-    
-    if(userAns == correcAns){ //if user selected option is equal to array's correct answer
-        userScore += 1; //upgrading score value with 1
-        answer.classList.add("correct"); //adding green color to correct selected option
-        answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
-        console.log("Correct Answer");
-        console.log("Your correct answers = " + userScore);
-    }else{
-        answer.classList.add("incorrect"); //adding red color to correct selected option
-        answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
-        console.log("Wrong Answer");
-        for(i=0; i < allOptions; i++){
-            if(document.querySelector(option_list).children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
-                document.querySelector(option_list).children[i].setAttribute("class", "option correct"); //adding green color to matched option
-                document.querySelector(option_list).children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
-                console.log("Auto selected correct answer.");
-            }
-        }
-    }
-    for(i=0; i < allOptions; i++){
-        document.querySelector(option_list).children[i].classList.add("disabled"); //once user select an option then disabled all options
-    }
-    document.querySelector(next_btn).classList.add("show"); //show the next button if user selected any option
-}
-function showResult(){
-  let scoreTag = '<span><p><i>' + songsList[songIndex].answers[0] + '</i> - ' + songsList[songIndex].name + '</br> Composed by ' + songsList[songIndex].answers[4] + '</p></span>';
+
+const showResult = () =>
+{
+  const scoreText = document.querySelector(result_box).querySelector(".score_text");
+  let scoreTag = `<span><p><i> ${songsList[songIndex].answers[0]} </i> - ${songsList[songIndex].name} </br> Composed by ${songsList[songIndex].answers[4]} </p></span>`;
   totalScore += userScore;
   numSongs--;
-  document.querySelector(info_box).classList.remove("activeInfo"); //hide info box
-  document.querySelector(quiz_box).classList.remove("activeQuiz"); //hide quiz box
-  document.querySelector(result_box).classList.add("activeResult"); //show result box
-  const scoreText = document.querySelector(result_box).querySelector(".score_text");
-  if(userScore > 2){ // if user scored more than 2
-      scoreTag += '<span>Good job, you got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+  document.querySelector(info_box).classList.remove("activeInfo"); 
+  document.querySelector(quiz_box).classList.remove("activeQuiz"); 
+  document.querySelector(result_box).classList.add("activeResult");
+  if (userScore > 2)
+  { 
+    scoreTag += `<span>Good job, you got <p> ${userScore} </p> out of <p> ${questions.length} </p></span>`;
   }
-  else{ // if user scored less than 1
-      scoreTag += '<span>Sorry, you got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+  else
+  { 
+    scoreTag += `<span>Sorry, you got only <p> ${userScore} </p> out of <p> ${questions.length} </p></span>`;
   }
   if (numSongs == 0)
   {
-    scoreTag += '<span> Total score: <p>' + totalScore + '</p> out of <p>' +  (questions.length * playedSongs.length) + '</p></span>';
-    document.getElementById("nextsong").style.display = 'none';
+    scoreTag += `<span> Total score: <p> ${totalScore} </p> out of <p> ${(questions.length * playedSongs.length)} </p></span>`;
+    document.getElementById(nextSongButton).style.display = 'none';
     
     if ((questions.length * playedSongs.length) * 0.6 <= totalScore)
     {
@@ -619,63 +620,63 @@ function showResult(){
     else
     {
       scoreTag += "<span>Oops, looks like soundtracks aren't your thing. </br>You can try again at any time.</span>";
-      document.getElementById("restart").style.display = 'block';
+      document.getElementById(restartButton).style.display = 'block';
+    }
+  }    
+  scoreText.innerHTML = scoreTag;
+}
+
+const startTimer = (time) => 
+{
+    counter = setInterval(timer, 1000);
+    function timer ()
+    {
+      currentTime = time;
+      document.querySelector(timeCount).textContent = time; 
+      time--; 
+      if (time < 9)
+      { 
+          let addZero = document.querySelector(timeCount).textContent; 
+          document.querySelector(timeCount).textContent = "0" + addZero;
+      }
+      if (time < 0)
+      { 
+        nextQuestion();
+      }
+    }
+}
+
+const startTimerLine = (time) => 
+{
+  counterLine = setInterval(timer, 29);
+  function timer () 
+  {
+    currentLineTime = time;
+    time += 1; 
+    document.querySelector(time_line).style.width = time + "px"; 
+    if (time > 549)
+    {  
+      clearInterval(counterLine); 
     }
   }
-
-
-    
-
-  scoreText.innerHTML = scoreTag;
-  
-}
-function startTimer(time){
-    counter = setInterval(timer, 1000);
-    function timer(){
-        currentTime = time;
-        document.querySelector(timeCount).textContent = time; //changing the value of timeCount with time value
-        time--; //decrement the time value
-        if(time < 9){ //if timer is less than 9
-            let addZero = document.querySelector(timeCount).textContent; 
-            document.querySelector(timeCount).textContent = "0" + addZero; //add a 0 before time value
-        }
-        if(time < 0){ //if timer is less than 0
-			    nextQuestion();
-        }
-    }
-}
-function startTimerLine(time){
-    counterLine = setInterval(timer, 29);
-    function timer(){
-        currentLineTime = time;
-        time += 1; //upgrading time value with 1
-        document.querySelector(time_line).style.width = time + "px"; //increasing width of time_line with px by time value
-        if(time > 549){ //if time value is greater than 549
-            clearInterval(counterLine); //clear counterLine
-        }
-    }
-}
-function queCounter(index){
-    //creating a new span tag and passing the question number and total question
-    let totalQueCounTag = '<span><p>'+ index +'</p> of <p>'+ questions.length +'</p> Questions</span>';
-    document.querySelector(bottom_ques_counter).innerHTML = totalQueCounTag;  //adding new span tag inside bottom_ques_counter
 }
 
-function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
+const queCounter = (index) => 
+{
+  let totalQueCounTag = `<span><p> ${index} </p> of <p> ${questions.length} </p> Questions</span>`;
+  document.querySelector(bottom_ques_counter).innerHTML = totalQueCounTag;  
+}
 
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
+const shuffle = (array) => 
+{
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex != 0) 
+  {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
-
   return array;
 }
 
@@ -706,18 +707,11 @@ const addAnswer = (answers, list, size) =>
   return answers;
 }
 
-const popup_box = ".popup_box";
-const popup_title = ".popup-title > span";
-const popup_content = ".popup-content";
-const tip_button = "tip-button";
-const popup_buttons = ".popup_box .buttons";
-
-
 
 const showPopup = (title, content, buttons) =>
 {
-  clearInterval(counterLine); //clear counterLine
-  clearInterval(counter); //clear counter
+  clearInterval(counterLine);
+  clearInterval(counter); 
   document.querySelector(popup_box).classList.add("activePopup");
   document.querySelector(quiz_box).classList.remove("activeQuiz");
   document.querySelector(popup_title).textContent = title;
@@ -729,8 +723,8 @@ const showPopup = (title, content, buttons) =>
 
 const closeButtonPopup = () => 
 {
-  startTimer(currentTime); //calling startTimer function
-  startTimerLine(currentLineTime); //calling startTimerLine function
+  startTimer(currentTime);
+  startTimerLine(currentLineTime); 
   document.querySelector(popup_box).classList.remove("activePopup");
   document.querySelector(quiz_box).classList.add("activeQuiz");
 }
