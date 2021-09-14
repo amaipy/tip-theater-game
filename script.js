@@ -620,7 +620,6 @@ const showResult = () =>
     else
     {
       scoreTag += "<span>Oops, looks like soundtracks aren't your thing. </br>You can try again at any time.</span>";
-      document.getElementById(restartButton).style.display = 'block';
     }
   }    
   scoreText.innerHTML = scoreTag;

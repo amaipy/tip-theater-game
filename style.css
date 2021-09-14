@@ -592,7 +592,6 @@ footer button.show{
 }
 .buttons button.restart{
     color: #007bff;
-    display: none;
     background: #fff;
 }
 .buttons button.restart:hover{
