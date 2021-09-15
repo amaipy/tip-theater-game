@@ -34,6 +34,10 @@ const quiz_title = ".quiz_box > header > div.title"
 
 const next_btn = "footer .next_btn";
 
+const upperButton = 'upper-buttons';
+
+let lastWindow = 'quiz';
+
 let timeValue =  15;
 let que_count = 0;
 let que_numb = 1;
@@ -612,6 +616,8 @@ const showResult = () =>
   {
     scoreTag += `<span> Total score: <p> ${totalScore} </p> out of <p> ${(questions.length * playedSongs.length)} </p></span>`;
     document.getElementById(nextSongButton).style.display = 'none';
+    document.getElementById(restartButton).style.display = 'block';
+    document.getElementById(upperButton).style.display = 'none';
     
     if ((questions.length * playedSongs.length) * 0.6 <= totalScore)
     {
@@ -711,8 +717,16 @@ const showPopup = (title, content, buttons) =>
 {
   clearInterval(counterLine);
   clearInterval(counter); 
+  switch (lastWindow)
+  {
+    case 'quiz':
+      document.querySelector(quiz_box).classList.remove("activeQuiz");
+      break;
+    case 'result':
+      document.querySelector(result_box).classList.remove("activeResult");
+      break;
+  }
   document.querySelector(popup_box).classList.add("activePopup");
-  document.querySelector(quiz_box).classList.remove("activeQuiz");
   document.querySelector(popup_title).textContent = title;
   document.querySelector(popup_content).textContent = content;
   document.querySelector(popup_buttons).style.display = 
@@ -725,13 +739,22 @@ const closeButtonPopup = () =>
   startTimer(currentTime);
   startTimerLine(currentLineTime); 
   document.querySelector(popup_box).classList.remove("activePopup");
-  document.querySelector(quiz_box).classList.add("activeQuiz");
+  switch (lastWindow)
+  {
+    case 'quiz':
+      document.querySelector(quiz_box).classList.add("activeQuiz");
+      break;
+    case 'result':
+      document.querySelector(result_box).classList.add("activeResult");
+      break;
+  }
 }
 
-const openPopupReset = () => 
+const openPopupReset = (window) => 
 {
   let title = "Are you sure?";
   let content = "You will return to the home screen";
+  lastWindow = window;
   showPopup(title, content, true);
 }
 
