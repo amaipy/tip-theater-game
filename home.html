@@ -2,20 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
-    <title>Theater Game</title>
+    <title>Station #1 - Theater Game</title>
   </head>
   <body>
-    <h1>Theater Game</h1>
     <div id="start-game">
-      <h2>Got the clues from the poster? Let's see! Listen to a recording and try to answer the riddle. </h2>
+      <h1>Station #1 - Theater Game</h1>
+      <h2>Got the clues from the poster? Let's see! Listen to the five recordings to answer the riddle.</h2>
       <button class="quiz-button" onclick="startPlayTrack()">Click here to start the game</button>
     </div>
 
@@ -39,12 +40,12 @@
         </div>
         
       </div>
-      <button class="quiz-button" onclick="afterPlayTrack()">Go to question</button>
+      <button class="quiz-button" id ="quiz-button" onclick="afterPlayTrack()">Go to question</button>
       
     </div>
 
     <!-- Quiz Box -->
-    <div class="quiz_box">
+    <div class="quiz_box col-5">
       <div class="upper-buttons">
         <button title="Restart game" class="floating-button" onclick="openPopupReset('quiz')">
           <svg class="icon-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.86" height="62.86" viewBox="0 0 62.86 62.86">
@@ -61,7 +62,7 @@
         </header>
         <section>
             <div class="que_text">
-              <span>Anwser with the correct word</span>
+              <span>Pay attention to the clues. What word stands out the most?</span>
             </div>
             <input class="answer_input" id="answer_input" onkeydown="submit(event)"></input>
         </section>
@@ -72,7 +73,7 @@
         </footer>
     </div>
     <!-- Pop up -->
-    <div class="popup_box">
+    <div class="popup_box col-4">
       <div class="popup-title"><span>Are you sure?</span> 
         <button class="close-button" onclick="closeButtonPopup()"> <i class="fa fa-times"></i></button></div>
       <div class="popup-content"></div>
@@ -83,15 +84,16 @@
   </div>
 
     <!-- Result Box -->
-    <div class="result_box">
+    <div class="result_box col-5">
         <div class="icon">
             <i class="fas fa-crown"></i>
         </div>
         <div class="complete_text">You completed the quiz!</div>
         <div class="score_text">
-          <span>Awesome! You got all the answers right</br>Now go find your maple leaf piece using the last answer as a clue.</span>
+          <span>Awesome! You got all the answers right</br>Now go find your puzzle piece using the last answer as a clue. Under-stand?</span>
         </div>
         <div class="buttons">
+            <button id="restart" class="restart" onclick="openTipWebsite()">TIP's website</button>
             <button id="restart" class="restart" onclick="quitReloadQuiz()">Replay Game</button>
         </div>
     </div>

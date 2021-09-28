@@ -8,6 +8,7 @@ const progressContainer = 'progress-container';
 const cover = 'cover';
 const currTime = '#currTime';
 const durTime = '#durTime';
+const quizButton = "quiz-button";
 
 const popup_box = ".popup_box";
 const popup_title = ".popup-title > span";
@@ -30,7 +31,7 @@ let numSongs = 5;
 
 const songsList =
 [
-  "bee", "tiger", "ghost", "madonna", "understand"
+  "bee", "roar", "ghost", "madonna", "understand"
 ]
 
 let songIndex = 0;
@@ -171,6 +172,7 @@ const startPlayTrack = () =>
 		document.getElementById(trackGame).style.display = '';
 		loadSong(songIndex);
 		playSong();
+    document.getElementById(quizButton).focus(); 
 		document.getElementById(startGame).style.display = 'none';
 	}
 }
@@ -193,18 +195,20 @@ const startQuiz = () =>
 {
   document.querySelector(quiz_box).classList.add("activeQuiz"); 
   document.querySelector(quiz_title).textContent = `Quiz - ${(numSongs * -1 + 6)}º recording out of 5`;
+  document.getElementById(answer_input).focus(); 
+  document.getElementById(answer_input).value = '';
+  document.querySelector(next_btn).textContent = "Submit";
+  document.getElementById(answer_input).classList.remove("correct"); 
 }
 
 
 const playNextSongQuiz = () =>
 {
   document.getElementById(trackGame).style.display = '';
-  playedTrack = false;
   nextSong();
-  document.getElementById(answer_input).classList.remove("correct"); 
-  document.getElementById(answer_input).value = '';
-  document.querySelector(next_btn).textContent = "Submit";
   document.querySelector(quiz_box).classList.remove("activeQuiz");
+  playedTrack = false;
+  
 }
 
 const quitReloadQuiz = () =>
@@ -212,12 +216,21 @@ const quitReloadQuiz = () =>
   window.location.reload();
 }
 
+const openTipWebsite = () =>
+{
+  window.open('https://sites.google.com/ualberta.ca/tips-interactive-project/')
+}
+
 const submit = (e) =>
 {
-  if (e.keyCode == 13)
+  if (document.querySelector(quiz_box).classList.contains("activeQuiz"))
   {
-    optionSelected();
+    if (e.keyCode == 13)
+    {
+      optionSelected();
+    }
   }
+  
 }
 
 const optionSelected = () =>

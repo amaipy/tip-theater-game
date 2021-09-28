@@ -33,15 +33,17 @@ body {
 #start-game
 {
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-body > h1, 
-#start-game > h2
+#start-game > h2,
+#start-game > h1
 {
   color: #464040;
 }
 
-body > h1 
+#start-game > h1 
 {
   font-weight: 900;
 }
@@ -242,7 +244,6 @@ body > h1
 }
 
 .popup_box{
-  width: 420px;
   background: #fff;
   border-radius: 5px;
   transform: translate(-50%, -50%) scale(0.9);
@@ -306,7 +307,6 @@ body > h1
 
 
 .quiz_box{
-    width: 550px;
     background: #fff;
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0.9);
@@ -448,7 +448,6 @@ footer button.show{
     border-radius: 5px;
     display: flex;
     padding: 25px 30px;
-    width: 450px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -553,4 +552,25 @@ footer button.show{
   margin-left: auto;
   margin-right: 0;
   font-size: 17px;
+}
+
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
 }
