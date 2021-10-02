@@ -573,4 +573,12 @@ footer button.show{
   [class*="col-"] {
     width: 100%;
   }
+  body {
+    background-image: url("./images/background_mobile-23.png");
+  }
+}
+
+#quote 
+{
+  font-size: 19px;
 }

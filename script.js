@@ -25,6 +25,8 @@ const quiz_title = ".quiz_box > header > div.title"
 
 const next_btn = "footer .next_btn";
 
+const quote = "quote";
+
 const answer_input = 'answer_input';
 
 let numSongs = 5;
@@ -33,6 +35,8 @@ const songsList =
 [
   "bee", "roar", "ghost", "madonna", "understand"
 ]
+
+const quotations = ["Shakespeare (Hamlet)", "Wole Soyinka (Tigritude)", "Marie Clements (Accidental Women)", "the singer Madonna", "Akutagawa Ryunosuke (Rashomon)"]
 
 let songIndex = 0;
 
@@ -195,6 +199,7 @@ const startQuiz = () =>
 {
   document.querySelector(quiz_box).classList.add("activeQuiz"); 
   document.querySelector(quiz_title).textContent = `Quiz - ${(numSongs * -1 + 6)}º recording out of 5`;
+  document.getElementById(quote).textContent = `Quote by ${quotations[(numSongs * -1 + 5)]}`
   document.getElementById(answer_input).focus(); 
   document.getElementById(answer_input).value = '';
   document.querySelector(next_btn).textContent = "Submit";
