@@ -223,7 +223,7 @@ const quitReloadQuiz = () =>
 
 const openTipWebsite = () =>
 {
-  window.open('https://sites.google.com/ualberta.ca/tips-interactive-project/')
+  window.open('https://sites.google.com/ualberta.ca/tips-interactive-project/home/the-interactive-game')
 }
 
 const submit = (e) =>
