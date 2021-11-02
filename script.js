@@ -306,3 +306,8 @@ const openPopupReset = (window) =>
   lastWindow = window;
   showPopup(title, content);
 }
+
+const openPoster = () => 
+{
+  window.open("https://raw.githubusercontent.com/amaipy/tip-theater-game/main/images/Drama%20Poster_4.png");
+}
