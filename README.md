@@ -3,7 +3,7 @@
 A Theatre related (audio and visual) quiz game in HTML + JavaScript + CSS.
 
 Created to be part of [The Interactive Project](https://sites.google.com/ualberta.ca/tips-interactive-project/) 
-Station #1 [(Theater)](https://sites.google.com/ualberta.ca/tips-interactive-project/home/the-interactive-game/theatre).
+Station #1 [(Theatre)](https://sites.google.com/ualberta.ca/tips-interactive-project/home/the-interactive-game/theatre).
 
 _extracted from the original website:_
 
